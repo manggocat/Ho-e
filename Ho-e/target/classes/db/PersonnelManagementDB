@@ -1,0 +1,17 @@
+create table balancing_accounts(
+bal_date date not null ,
+bal_type varchar2(20) not null,
+bal_content varchar2(20) not null,
+bal_profit number not null,
+bal_expense number not null,
+bal_total number not null
+);
+
+select * from balancing_accounts;
+
+insert into balancing_accounts(bal_date,bal_type,bal_content,bal_profit,bal_expense,bal_total)
+            values(TO_DATE(sysdate),'병원자산','병원자산',1000000,0,1000000);
+
+delete from balancing_accounts where bal_total = 1000000;
+
+drop table balancing_accounts;

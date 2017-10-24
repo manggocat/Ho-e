@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+	<!-- Root Context: defines shared resources visible to all other web components -->
+	<bean id="dataSource"
+		class="org.springframework.jdbc.datasource.DriverManagerDataSource">
+		<!-- driverClassName이란 메소드에다 넣어준다 //디비 연결 -->
+		<property name="driverClassName" value="oracle.jdbc.driver.OracleDriver" />
+		<property name="url" value="jdbc:oracle:thin:@localhost:1521:ORCL" />
+		<property name="username" value="hong" />
+		<property name="password" value="tiger" />
+	</bean>
+	
+	 <bean id="sqlSessionFactoryBean" class="org.mybatis.spring.SqlSessionFactoryBean">
+      <property name="dataSource" ref="dataSource" /> 
+      <property name="mapperLocations" value="classpath*:hoe/mapper/*/*.xml"/>
+      <!-- classpath: 해당하는 패키지만 검색 //classpath*: 모든패키지 검색 //*.xml : mapper 밑에 있는 하위 파일 중 모든 xml 파일 해당 -->
+    </bean>
+    
+    <bean id="sqlSession" class="org.mybatis.spring.SqlSessionTemplate">
+      <constructor-arg index="0" ref="sqlSessionFactoryBean" />
+    </bean>
+</beans>
